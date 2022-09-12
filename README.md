@@ -67,6 +67,13 @@ export async function getStaticProps(context) {
 
 동적 라우팅 페이지 중, 빌드 시에 static하게 생성할 페이지를 정한다.
 getStaticProps에서 id를 데이터로 가져온다
+return 값은 항상 path를 넣어줘야한다!
+
+```js
+[{ params: { id: string } }];
+```
+
+params안에 dynamic routes key가 들어있어야 한다.
 
 ```js
 export async function getStaticPaths() {
@@ -92,7 +99,9 @@ export async function getStaticPaths() {
 return;
 ```
 
-여기서 fallback을 false로 하면 주소 뒤에 아무거나 입력 후 해당 경로로 들어갈 시 404에러 페이지가 나온다.
+### fallback
+
+위에서 fallback을 false로 하면 주소 뒤에 아무거나 입력 후 해당 경로로 들어갈 시 404에러 페이지가 나온다.
 
 true면 아래와 같이 getStaticPaths에서 동작할 수 있다.
 
@@ -111,10 +120,15 @@ export default function test() {
 404page는 커스텀이 가능하다.
 pages/404.js를 수정하면 된다.
 
+### getStaticProps
+
+id별로 md에서 데이터를 읽어 page에 props로 전달하도록한다.
+
 ### dynamic routes
 
 getStaticProps와 getStaticPaths에서 사용할 수 있다.
 pages/posts/[...id]를 사용하면 아이디에 다중의 값을 들어올 수 있다.
+`...id`에 속한 내용이 dynamic routes가 되는 요소이다.
 
 ### 요약
 
